@@ -7,8 +7,11 @@ import java.util.Arrays;
 public class Main {
   public static void main(String[] args) throws IOException {
 //    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    BufferedReader reader = new BufferedReader(new FileReader("a_example.in"));
+//    BufferedReader reader = new BufferedReader(new FileReader("a_example.in"));
 //    BufferedReader reader = new BufferedReader(new FileReader("b_should_be_easy.in"));
+//    BufferedReader reader = new BufferedReader(new FileReader("c_no_hurry.in"));
+//    BufferedReader reader = new BufferedReader(new FileReader("d_metropolis.in"));
+    BufferedReader reader = new BufferedReader(new FileReader("e_high_bonus.in"));
     BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt"));
     String[] in = reader.readLine().split(" ");
     int R, C, F, N, B, T;
