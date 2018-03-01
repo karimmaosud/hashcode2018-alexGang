@@ -1,14 +1,15 @@
 package com.alexgang;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
   public static void main(String[] args) throws IOException {
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//    BufferedReader reader = new BufferedReader(new FileReader("a_example.in"));
+    BufferedReader reader = new BufferedReader(new FileReader("b_should_be_easy.in"));
+    BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt"));
     String[] in = reader.readLine().split(" ");
     int R, C, F, N, B, T;
 
@@ -36,18 +37,17 @@ public class Main {
 
 
 
-    bruteforce(R, C, F, N, B, T, ride);
+    bruteforce(R, C, F, N, B, T, ride, writer);
 
 
   }
 
-  private static void bruteforce(int r, int c, int f, int n, int b, int t, Ride[] ride) {
+  private static void bruteforce(int r, int c, int f, int n, int b, int t, Ride[] ride, BufferedWriter writer) throws IOException {
 
     Arrays.sort(ride);
 
-    int turn = 0;
-
     ArrayList<Integer>[] driver_rides = new ArrayList[f];
+
     for (int i = 0; i < f; ++i) {
       driver_rides[i] = new ArrayList<>();
     }
@@ -58,14 +58,17 @@ public class Main {
     }
 
 
+
     for (int i = 0; i < f; ++i) {
       int num_rides = driver_rides[i].size();
-      System.out.print(num_rides);
+      writer.append(num_rides+"");
       for (int j = 0; j < num_rides; ++ j) {
-        System.out.print(" " + driver_rides[i].get(j));
+        writer.append(" " + driver_rides[i].get(j));
       }
+      writer.append("\n");
     }
 
+    writer.close();
   }
 
   static class Ride implements Comparable<Ride> {
