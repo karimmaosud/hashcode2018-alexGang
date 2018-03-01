@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class Main {
   public static void main(String[] args) throws IOException {
+
 //    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 //    BufferedReader reader = new BufferedReader(new FileReader("a_example.in"));
 //    BufferedReader reader = new BufferedReader(new FileReader("b_should_be_easy.in"));
@@ -36,13 +37,51 @@ public class Main {
       ride[i].s = Integer.parseInt(in[4]);
       ride[i].f = Integer.parseInt(in[5]);
     }
+//    bruteforce(R, C, F, N, B, T, ride, writer);
+    solution1(R, C, F, N, B, T, ride, writer);
+  }
 
 
+  private static void solution1(int r, int c, int f, int n, int b, int t, Ride[] rides, BufferedWriter writer) throws IOException {
+    Driver[] drivers = new Driver[f];
+    for (int i = 0; i < f; ++i) {
+      drivers[i] = new Driver();
+    }
 
+    for(int i = 0; i < rides.length; i++){
+      Driver assigned = null;
+      int minimumTime = Integer.MAX_VALUE;
+      for(Driver driver: drivers){
+        int time = getDispatchTime(driver, rides[i]);
+        if(time < minimumTime){
+          minimumTime = time;
+          assigned = driver;
+        }
+      }
+      if(assigned != null){
+        updateDrive(assigned, rides[i], minimumTime, i);
+      }
 
-    bruteforce(R, C, F, N, B, T, ride, writer);
+    }
+    print(drivers, writer);
+  }
 
+  private static void updateDrive(Driver assigned, Ride ride, int minimumTime, int rideIndex) {
+    assigned.t += minimumTime + ride.manhatten();
+    assigned.x = ride.x;
+    assigned.y = ride.y;
+    assigned.driver_rides.add(rideIndex);
+  }
 
+  private static int getDispatchTime(Driver driver, Ride ride) {
+    int manhaten = Math.abs(driver.x - ride.a) + Math.abs(driver.y - ride.b);
+    int arrivalTime = manhaten + driver.t;
+
+    if(arrivalTime + ride.manhatten() > ride.f){
+      return Integer.MAX_VALUE;
+    }
+    int waitingTime = ride.s >= arrivalTime? ride.s - arrivalTime: 0;
+    return manhaten + waitingTime;
   }
 
   private static void bruteforce(int r, int c, int f, int n, int b, int t, Ride[] ride, BufferedWriter writer) throws IOException {
@@ -60,8 +99,6 @@ public class Main {
       driver_rides[i % f].add(i);
     }
 
-
-
     for (int i = 0; i < f; ++i) {
       int num_rides = driver_rides[i].size();
       writer.append(num_rides+"");
@@ -71,6 +108,18 @@ public class Main {
       writer.append("\n");
     }
 
+    writer.close();
+  }
+
+  private static void print(Driver[] drivers, BufferedWriter writer) throws IOException {
+    for (int i = 0; i < drivers.length; ++i) {
+      int num_rides = drivers[i].driver_rides.size();
+      writer.append(num_rides+"");
+      for (int j = 0; j < num_rides; ++ j) {
+        writer.append(" " + drivers[i].driver_rides.get(j));
+      }
+      writer.append("\n");
+    }
     writer.close();
   }
 
@@ -116,6 +165,16 @@ public class Main {
 
     public int dist_origin() {
       return a + b;
+    }
+  }
+
+  static class Driver{
+    int x;
+    int y;
+    int t;
+    ArrayList<Integer> driver_rides;
+    public Driver(){
+      driver_rides = new ArrayList<>();
     }
   }
 }
