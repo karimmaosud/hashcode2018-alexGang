@@ -3,6 +3,7 @@ package com.alexgang;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
   public static void main(String[] args) throws IOException {
@@ -31,7 +32,15 @@ public class Main {
       ride[i].f = Integer.parseInt(in[5]);
     }
 
+    Arrays.sort(ride);
 
+
+    bruteforce(R, C, F, N, B, T, ride);
+
+
+  }
+
+  private static void bruteforce(int r, int c, int f, int n, int b, int t, Ride[] ride) {
 
   }
 
@@ -49,7 +58,6 @@ public class Main {
 
     public Ride() {
     }
-
 
     @Override
     public int compareTo(Ride o) {
