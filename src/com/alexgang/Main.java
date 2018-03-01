@@ -7,8 +7,8 @@ import java.util.Arrays;
 public class Main {
   public static void main(String[] args) throws IOException {
 //    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-//    BufferedReader reader = new BufferedReader(new FileReader("a_example.in"));
-    BufferedReader reader = new BufferedReader(new FileReader("b_should_be_easy.in"));
+    BufferedReader reader = new BufferedReader(new FileReader("a_example.in"));
+//    BufferedReader reader = new BufferedReader(new FileReader("b_should_be_easy.in"));
     BufferedWriter writer = new BufferedWriter(new FileWriter("out.txt"));
     String[] in = reader.readLine().split(" ");
     int R, C, F, N, B, T;
@@ -91,13 +91,17 @@ public class Main {
       if (this.s != o.s) {
         return this.s - o.s;
       } else {
-        if (this.dist_origin() != o.dist_origin()) {
-          return this.dist_origin() - o.dist_origin();
+        if (this.f != o.f) {
+          return this.f - o.f;
         } else {
-          if (this.manhatten() != o.manhatten()) {
-            return o.manhatten() - this.manhatten();
+          if (this.dist_origin() != o.dist_origin()) {
+            return this.dist_origin() - o.dist_origin();
           } else {
-            return 0;
+            if (this.manhatten() != o.manhatten()) {
+              return o.manhatten() - this.manhatten();
+            } else {
+              return 0;
+            }
           }
         }
       }
