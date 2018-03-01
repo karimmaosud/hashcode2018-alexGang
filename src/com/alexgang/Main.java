@@ -3,6 +3,7 @@ package com.alexgang;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
@@ -32,7 +33,7 @@ public class Main {
       ride[i].f = Integer.parseInt(in[5]);
     }
 
-    Arrays.sort(ride);
+
 
 
     bruteforce(R, C, F, N, B, T, ride);
@@ -41,6 +42,29 @@ public class Main {
   }
 
   private static void bruteforce(int r, int c, int f, int n, int b, int t, Ride[] ride) {
+
+    Arrays.sort(ride);
+
+    int turn = 0;
+
+    ArrayList<Integer>[] driver_rides = new ArrayList[f];
+    for (int i = 0; i < f; ++i) {
+      driver_rides[i] = new ArrayList<>();
+    }
+
+
+    for (int i = 0; i < n; ++i) {
+      driver_rides[i % f].add(i);
+    }
+
+
+    for (int i = 0; i < f; ++i) {
+      int num_rides = driver_rides[i].size();
+      System.out.print(num_rides);
+      for (int j = 0; j < num_rides; ++ j) {
+        System.out.print(" " + driver_rides[i].get(j));
+      }
+    }
 
   }
 
