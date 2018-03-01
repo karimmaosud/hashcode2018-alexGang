@@ -95,7 +95,7 @@ public class Main {
           return this.dist_origin() - o.dist_origin();
         } else {
           if (this.manhatten() != o.manhatten()) {
-            return o.s - this.s;
+            return o.manhatten() - this.manhatten();
           } else {
             return 0;
           }
